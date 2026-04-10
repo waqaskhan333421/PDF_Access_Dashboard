@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin - Manage uploaded PDFs">
+    <title>Uploaded PDFs — PDF Access Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <span class="brand">📄 PDF Access Manager</span>
+            <div class="nav-links">
+                <a href="/admin-dashboard" class="nav-btn">📤 Upload</a>
+                <a href="/admin-requests" class="nav-btn">📋 User Requests</a>
+                <a href="/admin-users" class="nav-btn">👥 User Accounts</a>
+                <a href="/admin-pdfs" class="nav-btn active">📁 Uploaded PDFs</a>
+                <button class="nav-btn logout" onclick="handleLogout()">🚪 Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h2>Uploaded PDFs</h2>
+                <p>Manage all uploaded PDF documents</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-value" id="pdf-count">—</div>
+                    <div class="stat-label">Total PDFs</div>
+                </div>
+            </div>
+
+            <!-- PDFs Grid -->
+            <div class="card-grid" id="pdfs-list">
+                <div class="loading" style="padding: 40px; text-align: center; color: var(--text-muted);">Loading
+                    PDFs...</div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+    <script>loadAdminPDFs();</script>
+</body>
+
+</html>

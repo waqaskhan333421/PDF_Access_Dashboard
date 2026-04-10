@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin - Review user access requests">
+    <title>User Requests — PDF Access Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <span class="brand">📄 PDF Access Manager</span>
+            <div class="nav-links">
+                <a href="/admin-dashboard" class="nav-btn">📤 Upload</a>
+                <a href="/admin-requests" class="nav-btn active">📋 User Requests</a>
+                <a href="/admin-users" class="nav-btn">👥 User Accounts</a>
+                <a href="/admin-pdfs" class="nav-btn">📁 Uploaded PDFs</a>
+                <button class="nav-btn logout" onclick="handleLogout()">🚪 Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h2>User Access Requests</h2>
+                <p>Review applications and AI recommendations, then approve or reject</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-value" id="pending-count">—</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-apps">—</div>
+                    <div class="stat-label">Total Applications</div>
+                </div>
+            </div>
+
+            <!-- Applications List -->
+            <div id="applications-list">
+                <div class="loading" style="padding: 40px; text-align: center; color: var(--text-muted);">Loading
+                    applications...</div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+    <script>loadApplications();</script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="User Dashboard - Browse and request access to PDFs">
+    <title>Dashboard — PDF Access Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <span class="brand">📄 PDF Access Manager</span>
+            <div class="nav-links">
+                <button class="nav-btn active" onclick="showSection('pdfs')">📄 Available PDFs</button>
+                <button class="nav-btn" onclick="showSection('applications')">📋 My Applications</button>
+                <button class="nav-btn" onclick="openPasswordModal()">⚙️ Settings</button>
+                <button class="nav-btn logout" onclick="handleLogout()">🚪 Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- PDFs Section -->
+            <div id="section-pdfs">
+                <div class="page-header">
+                    <h2>Available PDFs</h2>
+                    <p>Browse documents and request access to the ones you need</p>
+                </div>
+                <div class="card-grid" id="user-pdfs-list">
+                    <div class="loading" style="padding: 40px; text-align: center; color: var(--text-muted);">Loading
+                        PDFs...</div>
+                </div>
+            </div>
+
+            <!-- Applications Section -->
+            <div id="section-applications" style="display: none;">
+                <div class="page-header">
+                    <h2>My Applications</h2>
+                    <p>Track the status of your access requests</p>
+                </div>
+                <div id="my-applications-list">
+                    <div class="loading" style="padding: 40px; text-align: center; color: var(--text-muted);">Loading
+                        applications...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apply Modal -->
+    <div class="modal-overlay" id="apply-modal">
+        <div class="modal">
+            <h3>📝 Request Access</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                Requesting access to: <strong id="apply-pdf-title" style="color: var(--text-primary);"></strong>
+            </p>
+            <form onsubmit="handleSubmitApplication(event)">
+                <input type="hidden" id="apply-pdf-id">
+                <div class="form-group">
+                    <label for="apply-text">Why do you need this document?</label>
+                    <textarea id="apply-text" rows="5" placeholder="Explain your reason for requesting access..."
+                        required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="closeApplyModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div class="modal-overlay" id="password-modal">
+        <div class="modal">
+            <h3>⚙️ Change Password</h3>
+            <form onsubmit="handlePasswordChange(event)">
+                <div class="form-group">
+                    <label for="old-password">Current Password</label>
+                    <input type="password" id="old-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-password">Confirm New Password</label>
+                    <input type="password" id="confirm-new-password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="closePasswordModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Viewer Modal -->
+    <div class="modal-overlay" id="viewer-modal">
+        <div class="modal">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 id="viewer-pdf-title" style="margin-bottom: 0;">👁️ Viewing PDF</h3>
+                <button class="btn btn-danger btn-sm" onclick="closeViewerModal()">Close Viewer</button>
+            </div>
+            <div class="viewer-container">
+                <iframe id="pdf-viewer-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+    <script>
+        loadUserPDFs();
+        loadMyApplications();
+
+        function showSection(section) {
+            document.getElementById('section-pdfs').style.display = section === 'pdfs' ? 'block' : 'none';
+            document.getElementById('section-applications').style.display = section === 'applications' ? 'block' : 'none';
+
+            document.querySelectorAll('.nav-links .nav-btn:not(.logout)').forEach((btn, i) => {
+                if (i === 0) btn.classList.toggle('active', section === 'pdfs');
+                if (i === 1) btn.classList.toggle('active', section === 'applications');
+            });
+
+            if (section === 'applications') loadMyApplications();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Upload and manage PDF documents">
+    <title>Admin Dashboard — PDF Access Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <span class="brand">📄 PDF Access Manager</span>
+            <div class="nav-links">
+                <a href="/admin-dashboard" class="nav-btn active">📤 Upload</a>
+                <a href="/admin-requests" class="nav-btn">📋 User Requests</a>
+                <a href="/admin-users" class="nav-btn">👥 User Accounts</a>
+                <a href="/admin-pdfs" class="nav-btn">📁 Uploaded PDFs</a>
+                <button class="nav-btn" onclick="openPasswordModal()">⚙️ Settings</button>
+                <button class="nav-btn logout" onclick="handleLogout()">🚪 Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h2>Upload PDF Documents</h2>
+                <p>Upload new PDF files for users to request access to</p>
+            </div>
+
+            <!-- Upload Area -->
+            <div class="upload-area">
+                <h3>📤 Upload New PDF</h3>
+                <form class="upload-form" onsubmit="handleUploadPDF(event)">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" placeholder="Enter PDF title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="file">PDF File</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="file" name="file" accept=".pdf" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" placeholder="Describe the PDF content..."
+                            rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">📤 Upload PDF</button>
+                </form>
+            </div>
+
+            <!-- Recent PDFs -->
+            <div class="page-header">
+                <h2>Recent Uploads</h2>
+            </div>
+            <div class="card-grid" id="pdfs-list">
+                <div class="loading" style="padding: 40px; text-align: center; color: var(--text-muted);">Loading...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div class="modal-overlay" id="password-modal">
+        <div class="modal">
+            <h3>⚙️ Change Password</h3>
+            <form onsubmit="handlePasswordChange(event)">
+                <div class="form-group">
+                    <label for="old-password">Current Password</label>
+                    <input type="password" id="old-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-password">Confirm New Password</label>
+                    <input type="password" id="confirm-new-password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="closePasswordModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+    <script>loadAdminPDFs();</script>
+</body>
+
+</html>
