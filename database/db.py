@@ -6,7 +6,7 @@ engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-
+#whar are the new 
 def get_db():
     """Dependency that provides a database session."""
     db = SessionLocal()
