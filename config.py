@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-# Load .env file
+# Load .env files and
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY", "super-secret-key-change-in-production-2024")
