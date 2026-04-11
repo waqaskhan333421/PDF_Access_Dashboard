@@ -10,7 +10,7 @@ from routers import auth, admin, user, pages
 
 app = FastAPI(title="PDF Access Management System", version="1.0.0")
 
-# Mount static files
+# Mount static files and most
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Include routers
